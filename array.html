@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+	var arr = function (id, name, parentId) {
+  this.id = id;
+  this.name = name;
+  this.parentId = parentId;
+  this.childs = [];
+}
+
+arr.prototype.addChild = function(arr) {
+  if(this.id == arr.parentId) {
+    this.childs.push(arr);
+    arr.placed = true;
+  } else {
+    for(var i = 0; i < this.childs.length; i++) {
+      if(arr.placed) break;
+      this.childs[i].addChild(arr);
+    }
+  }
+  if(!arr.placed) throw 'Could not find parent for ' + arr;
+}
+
+arr.prototype.export = function () {
+  return JSON.stringify([this], ['id', 'name', 'childs', 'parentId'], ' ');
+}
+
+arr.fromArray = function (src) {
+  var tree = new arr(src[0].id, src[0].name, src[0].parentId);
+  src.slice(1).forEach(function (item) {
+    tree.addChild(new arr(item.id, item.name, item.parentId));
+  });
+  return tree;
+}
+ 
+var srcArray = [
+  {"name":"root", "parentId":null, "id":100},
+  {"name":"1stlevelChild1", "parentId":100, "id":201},
+  {"name":"1stlevelChild2", "parentId":100, "id":202},
+  {"name":"2ndlevelChild1", "parentId":201, "id":301},
+  {"name":"2ndlevelChild2", "parentId":201, "id":301}
+]
+ 
+console.log(arr.fromArray(srcArray).export());
+	</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf8'>
+<title>popup</title>
+<style type="text/css">
+	.show:hover {
+		color: #0000ff;
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	#wrap{
+		display: none;
+		opacity: 0.8;
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		padding: 16px;
+		background-color: rgba(1, 1, 1, 0.725);
+		z-index: 100;
+		overflow: auto;
+	}
+	#window{
+		width: 200px;
+		height: 100px;
+		margin: 50px auto;
+		display: none;
+		background: #fff;
+		z-index: 200;
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		padding: 16px;
+	}
+</style>
+</head>
+<body>
+<a class="show" onclick="show('block')">Show popup</a>
+<div onclick="show('none')" id="wrap"></div>
+<div id="window">
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+	<button class="close" onclick="show('none')"">OK!</button>
+</div>
+
+
+<script type="text/javascript">
+	function show(state){
+			document.getElementById('window').style.display = state;
+			document.getElementById('wrap').style.display = state; 	
+	}
+</script>
+</body>
+</html>
